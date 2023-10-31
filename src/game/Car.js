@@ -23,8 +23,6 @@ class Car {
   }
 
   printStepState() {
-    // 여기서 print로
-    // return `${this.#name} : ${getHyphens(this.#stepCount)}`;
     print(`${this.#name} : ${getHyphens(this.#stepCount)}`);
   }
 

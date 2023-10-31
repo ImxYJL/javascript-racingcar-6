@@ -7,9 +7,9 @@ import {
   isDuplicateString,
   isContainString,
   isEmptyString,
-} from '../src/utility/validation';
+} from '../../src/utility/validation';
 
-import { ERROR_MESSAGE } from '../src/constant/message';
+import { ERROR_MESSAGE } from '../../src/constant/message';
 
 describe('유효성 함수 테스트', () => {
   test('입력이 유효한 숫자인지 테스트', () => {
@@ -74,10 +74,14 @@ describe('유효성 함수 테스트', () => {
     );
   });
 
-  // 여기 throw 버전으로 수정해줘야 하ㅏㅁ
-  // test('문자열이 공백인지 확인하는 함수', () => {
-  //   expect(isEmptyString('')).toBe(true);
-  //   expect(isEmptyString(' ')).toBe(true); // 공백 문자열도 공백으로 처리
-  //   expect(isEmptyString('non-empty string')).toBe(false);
-  // });
+  test('문자열이 공백인지 테스트', () => {
+    // 공백 문자열도 공백으로 처리
+    expect(() => isEmptyString('  ', ERROR_MESSAGE.wrongGameCountInput)).toThrowError(
+      ERROR_MESSAGE.wrongGameCountInput
+    );
+    expect(() => isEmptyString('',ERROR_MESSAGE.wrongNameInput)).toThrowError(
+      ERROR_MESSAGE.wrongNameInput
+    );
+    expect(() => isEmptyString(' .','빈 문자열이 아니다')).not.toThrowError();
+  });
 });

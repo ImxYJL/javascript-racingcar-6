@@ -18,8 +18,8 @@ class RacingCarGame {
 
   #nameListString = '';
 
-  #isMaxLengthExceeded() {
-    if (this.#nameList.length() > 1000) {
+  #isMaxNameListLength() {
+    if (this.#nameList.length > 1000) {
       throw new Error(ERROR_MESSAGE.wrongNameListLength);
     }
   }
@@ -58,7 +58,7 @@ class RacingCarGame {
 
     // 각 이름의 유효성 검증
     this.#nameList = splitStringByComma(this.#nameListString);
-    this.#isMaxLengthExceeded();
+    this.#isMaxNameListLength();
     this.#isValidName();
 
     await this.#getGameCount();
@@ -71,16 +71,14 @@ class RacingCarGame {
 
     while (this.#gameCount) {
       garage.tryAllCarsMove();
-      garage.printCarStateList();
+      garage.displayCarStateList();
       print('');
       this.#gameCount -= 1;
     }
 
-    // print(garage.findCarNameByValue());
     print(
-      MESSAGE.winnerGuide + joinArrayWithComma(garage.findCarNameByValue()),
+      MESSAGE.winnerGuide + joinArrayWithComma(garage.findCarNamesWithMaxSteps()),
     );
-    // print(MESSAGE.winnerGuide);
   }
 }
 

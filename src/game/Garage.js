@@ -18,21 +18,17 @@ class Garage {
       (max, car) => Math.max(max, car.compareAndUpdateMaxStepCount(max)),
       0,
     );
-    // let max = 0;
-    // this.#carList.forEach((car) => {
-    //   max = car.compareAndUpdateMaxStepCount(max);
-    // });
-
-    // return max;
   }
 
-  findCarNameByValue() {
+  findCarNamesWithMaxSteps() {
     const maxStepCount = this.#getMaxStepCount();
     const names = [];
+
     this.#carList.forEach((car) => {
       const name = car.isStepCountEqualToMax(maxStepCount);
       if (name) names.push(name);
     });
+
     return Array.from(names);
   }
 
@@ -42,7 +38,7 @@ class Garage {
     });
   }
 
-  printCarStateList() {
+  displayCarStateList() {
     this.#carList.forEach((car) => {
       car.printStepState();
     });

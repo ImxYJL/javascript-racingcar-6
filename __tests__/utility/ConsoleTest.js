@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { print, readLineAsync } from '../src/utility/console';
+import { print, readLineAsync } from '../../src/utility/console';
 
 jest.mock('@woowacourse/mission-utils'); // Console 모듈 모킹
 
