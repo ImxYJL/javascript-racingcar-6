@@ -76,12 +76,12 @@ describe('유효성 함수 테스트', () => {
 
   test('문자열이 공백인지 테스트', () => {
     // 공백 문자열도 공백으로 처리
-    expect(() => isEmptyString('  ', ERROR_MESSAGE.wrongGameCountInput)).toThrowError(
-      ERROR_MESSAGE.wrongGameCountInput
+    expect(() =>
+      isEmptyString('  ', ERROR_MESSAGE.wrongGameCountInput),
+    ).toThrowError(ERROR_MESSAGE.wrongGameCountInput);
+    expect(() => isEmptyString('', ERROR_MESSAGE.wrongNameInput)).toThrowError(
+      ERROR_MESSAGE.wrongNameInput,
     );
-    expect(() => isEmptyString('',ERROR_MESSAGE.wrongNameInput)).toThrowError(
-      ERROR_MESSAGE.wrongNameInput
-    );
-    expect(() => isEmptyString(' .','빈 문자열이 아니다')).not.toThrowError();
+    expect(() => isEmptyString(' .', '빈 문자열이 아니다')).not.toThrowError();
   });
 });

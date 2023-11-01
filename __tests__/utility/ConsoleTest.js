@@ -1,10 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
 import { print, readLineAsync } from '../../src/utility/console';
 
-jest.mock('@woowacourse/mission-utils'); // Console 모듈 모킹
+jest.mock('@woowacourse/mission-utils');
 
 describe('print 함수 테스트', () => {
-  it('주어진 메세지를 제대로 출력하는지 테스트', () => {
+  test('주어진 메세지를 제대로 출력하는지 테스트', () => {
     const message = 'Decaf coffee at night';
     print(message);
 
@@ -20,7 +20,7 @@ describe('readLineAsync 함수 테스트', () => {
     expect(Console.readLineAsync).toHaveBeenCalledWith(message);
   });
 
-  it('입력받은 문자열을 제대로 리턴하는지 테스트', async () => {
+  test('입력받은 문자열을 제대로 리턴하는지 테스트', async () => {
     const message = '입력: ';
     const expectedResult = '맛있는 저녁';
 
