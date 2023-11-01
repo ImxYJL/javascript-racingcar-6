@@ -1,5 +1,8 @@
 import Garage from './Garage.js';
-import { splitStringByComma, joinArrayWithComma } from '../utility/string.js';
+import {
+  splitStringByComma,
+  joinArrayWithCommaAndBlank,
+} from '../utility/string.js';
 import { print, readLineAsync } from '../utility/console.js';
 import { MESSAGE, ERROR_MESSAGE } from '../constant/message.js';
 import {
@@ -78,7 +81,7 @@ class RacingCarGame {
 
     print(
       MESSAGE.winnerGuide +
-        joinArrayWithComma(garage.findCarNamesWithMaxSteps()),
+        joinArrayWithCommaAndBlank(garage.findCarNamesWithMaxSteps()),
     );
   }
 }
