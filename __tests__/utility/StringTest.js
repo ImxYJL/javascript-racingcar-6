@@ -1,7 +1,7 @@
 import {
   getHyphens,
   splitStringByComma,
-  joinArrayWithComma,
+  joinArrayWithCommaAndBlank,
 } from '../../src/utility/string';
 
 describe('문자열 함수 테스트', () => {
@@ -20,10 +20,10 @@ describe('문자열 함수 테스트', () => {
     expect(splitStringByComma('')).toEqual(['']);
   });
 
-  test('배열 요소들을 ,를 기준으로 이어붙여 하나의 문자열로 만드는지 테스트', () => {
-    expect(joinArrayWithComma(['apple', 'banana', 'cherry'])).toBe(
-      'apple,banana,cherry',
+  test('배열 요소들을 ", "로 이어붙여 하나의 문자열로 만드는지 테스트', () => {
+    expect(joinArrayWithCommaAndBlank(['apple', 'banana', 'cherry'])).toBe(
+      'apple, banana, cherry',
     );
-    expect(joinArrayWithComma([])).toBe('');
+    expect(joinArrayWithCommaAndBlank([])).toBe('');
   });
 });

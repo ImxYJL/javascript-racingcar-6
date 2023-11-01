@@ -1,93 +1,70 @@
+import { Console } from '@woowacourse/mission-utils';
+import { pickNumberInRange } from '../../src/utility/random';
 import Car from '../../src/game/Car';
-import * as randomUtils from '../utility/random'; // Import the random utility functions
-import * as validationUtils from '../utility/validation'; // Import the validation utility functions
-import * as stringUtils from '../utility/string'; // Import the string utility functions
-import * as consoleUtils from '../utility/console'; // Import the console utility functions
 
-// Mock the utility functions
-jest.mock('../utility/random');
-jest.mock('../utility/validation');
-jest.mock('../utility/string');
-jest.mock('../utility/console');
+jest.mock('../../src/utility/random', () => ({
+  pickNumberInRange: jest.fn(),
+}));
 
-describe('Car class', () => {
-  beforeEach(() => {
-    // Clear the mock implementation and reset any mock state before each test
-    jest.clearAllMocks();
-  });
+describe('Car 클래스 메소드 테스트', () => {
+  test('tryToMove 이동 테스트', () => {
+    const car = new Car('Car1');
+    const logSpy = jest.spyOn(Console, 'print');
+    pickNumberInRange.mockReturnValue(5);
 
-  
-
-  test('tryToMove method should not increase step count when randomNumber is not within 4 to 9', () => {
-    // Mock the behavior of pickNumberInRange and isWithinFourToNine
-    randomUtils.pickNumberInRange.mockReturnValue(2); // Mock a random number outside 4 to 9
-    validationUtils.isWithinFourToNine.mockReturnValue(false); // Mock that it's not within 4 to 9
-
-    const car = new Car('testCar');
     car.tryToMove();
-
-    // Ensure that step count remains 0
-    expect(car.#stepCount).toBe(0);
+    car.printStepState(); //
+    expect(logSpy).toHaveBeenCalledWith('Car1 : -');
   });
 
-  test('printStepState method should print the correct step state', () => {
-    // Mock the behavior of getHyphens
-    stringUtils.getHyphens.mockReturnValue('---'); // Mock hyphens for step count 3
-
-    const car = new Car('testCar');
-    car.#stepCount = 3; // Set step count to 3
-
+  test('tryToMove 정지 테스트', () => {
+    const car = new Car('Car1');
+    const logSpy = jest.spyOn(Console, 'print');
+    pickNumberInRange.mockReturnValue(3);
+    car.tryToMove();
     car.printStepState();
 
-    // Ensure that the print function is called with the expected string
-    expect(consoleUtils.print).toHaveBeenCalledWith('testCar : ---');
+    expect(logSpy).toHaveBeenCalledWith('Car1 : ');
   });
 
-  test('compareAndUpdateMaxStepCount method should return the maximum of two values', () => {
-    const car = new Car('testCar');
-    car.#stepCount = 5; // Set step count to 5
-    const maxStepCount = 3;
+  test('printStepState 테스트', () => {
+    jest.mock('../../src/utility/string', () => ({
+      getHyphens: jest.fn().mockReturnValue('---'),
+    }));
 
-    const updatedMaxStepCount = car.compareAndUpdateMaxStepCount(maxStepCount);
+    const car = new Car('Car1');
+    const logSpy = jest.spyOn(Console, 'print');
 
-    // Ensure that the updated max step count is the maximum of the two values
-    expect(updatedMaxStepCount).toBe(5);
+    pickNumberInRange.mockReturnValue(5);
+    for (let i = 0; i < 3; i++) car.tryToMove();
+    car.printStepState();
+
+    expect(logSpy).toHaveBeenCalledWith('Car1 : ---');
   });
 
-  test('isStepCountEqualToMax method should return the name if step count equals max step count', () => {
-    const car = new Car('testCar');
-    car.#stepCount = 5; // Set step count to 5
-    const maxStepCount = 5; // Set max step count to the same value
+  test('compareAndUpdateMaxStepCount 테스트', () => {
+    const car = new Car('Car1');
+    const maxStepCount = 0;
+    pickNumberInRange.mockReturnValue(5);
 
-    const result = car.isStepCountEqualToMax(maxStepCount);
+    car.tryToMove();
+    const newMaxStepCount = car.compareAndUpdateMaxStepCount(maxStepCount);
 
-    // Ensure that the result is the name of the car
-    expect(result).toBe('testCar');
+    expect(newMaxStepCount).toBe(1);
   });
 
-  test('isStepCountEqualToMax method should return undefined if step count is not equal to max step count', () => {
-    const car = new Car('testCar');
-    car.#stepCount = 5; // Set step count to 5
-    const maxStepCount = 3; // Set max step count to a different value
+  test('isStepCountEqualToMax 테스트', () => {
+    const car1 = new Car('Car1');
+    const car2 = new Car('Car2');
 
-    const result = car.isStepCountEqualToMax(maxStepCount);
+    const maxStepCount = 1;
+    pickNumberInRange.mockReturnValue(5);
+    car2.tryToMove();
 
-    // Ensure that the result is undefined
-    expect(result).toBeUndefined();
+    const car1Name = car1.isStepCountEqualToMax(maxStepCount);
+    const car2Name = car2.isStepCountEqualToMax(maxStepCount);
+
+    expect(car1Name).toBe(undefined);
+    expect(car2Name).toBe('Car2');
   });
 });
-
-// describe("Car 클래스 테스트", () => {
-//     test("isStepCountEqualToMax 테스트", () => {
-//       const car = new Car("testCar");
-//       car.tryToMove(); // Simulate a move
-//       const maxStepCount = car.compareAndUpdateMaxStepCount(0);
-  
-//       // Test when step count is equal to max
-//       expect(car.isStepCountEqualToMax(maxStepCount)).toBe("testCar");
-  
-//       // Test when step count is not equal to max
-//       expect(car.isStepCountEqualToMax(maxStepCount + 1)).toBe(undefined);
-//     });
-//   });
-  

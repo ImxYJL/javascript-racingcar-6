@@ -18,7 +18,7 @@ describe('난수 함수 테스트', () => {
   it('Random.pickNumberInRange가 값을 제대로 반환하는지 테스트', () => {
     const startNumber = 1;
     const endNumber = 10;
-    const expectedResult = 5; // 예상 결과값, 필요에 따라 수정하세요
+    const expectedResult = 5; // 예상 결과값
     Random.pickNumberInRange.mockReturnValue(expectedResult);
 
     const result = pickNumberInRange(startNumber, endNumber);

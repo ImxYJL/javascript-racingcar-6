@@ -77,7 +77,8 @@ class RacingCarGame {
     }
 
     print(
-      MESSAGE.winnerGuide + joinArrayWithComma(garage.findCarNamesWithMaxSteps()),
+      MESSAGE.winnerGuide +
+        joinArrayWithComma(garage.findCarNamesWithMaxSteps()),
     );
   }
 }
